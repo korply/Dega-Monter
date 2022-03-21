@@ -3,12 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Platfromlayer
   - Water
   - UI
   - 
@@ -38,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgrond
+    uniqueID: 4167662969
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BoxCD
+    uniqueID: 3916166833
+    locked: 0
+  - name: Player
+    uniqueID: 635635021
     locked: 0
