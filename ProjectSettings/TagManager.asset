@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Background
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - Platfromlayer
   - Water
   - UI
-  - 
-  - 
+  - Item
+  - Backgrond
   - 
   - 
   - 
@@ -50,4 +51,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 635635021
+    locked: 0
+  - name: Item
+    uniqueID: 1083756795
     locked: 0
