@@ -83,7 +83,7 @@ public class Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
         {
-            float jumpVelocity = 7f;
+            float jumpVelocity = 10f;
             rigidbody2d.velocity = Vector2.up * jumpVelocity;
             jumpCount++;
         }
