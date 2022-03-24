@@ -14,7 +14,7 @@ public class Controller : MonoBehaviour
     public float moveSpeed = 2f;
 
     private Rigidbody2D rigidbody2d;
-    private CircleCollider2D circleCollider2D;
+    private BoxCollider2D boxCollider2D;
     [SerializeField] private LayerMask platformsLayerMask;
     int jumpCount = 0;
 
@@ -28,7 +28,7 @@ public class Controller : MonoBehaviour
         STRhuman.transform.position = transform.position + new Vector3(1, 0, 0);
 
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
-        circleCollider2D = transform.GetComponent<CircleCollider2D>();
+        boxCollider2D = transform.GetComponent<BoxCollider2D>();
     }
     void Update()
     {
@@ -90,7 +90,7 @@ public class Controller : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(circleCollider2D.bounds.center, circleCollider2D.bounds.size, 0f, Vector2.down, .1f, platformsLayerMask);
+        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, .1f, platformsLayerMask);
      
         return raycastHit2D.collider != null;
     }
