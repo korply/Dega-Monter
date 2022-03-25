@@ -18,9 +18,6 @@ public class Background : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody2D>();
         width = 20.48f;
-
-
-
     }
 
     // Update is called once per frame
