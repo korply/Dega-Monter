@@ -90,7 +90,7 @@ public class Controller : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, .1f, platformsLayerMask);
+        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.min, boxCollider2D.size, 0f, Vector2.down, .1f, platformsLayerMask);
      
         return raycastHit2D.collider != null;
     }
