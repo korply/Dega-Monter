@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class HumanMagic : MonoBehaviour
 {
-     public int currentHealth;
-    public int maxHealth = 80;
-    
+    public int currentHealthMagic;
+    public int maxHealthMagic = 80;
+
     public HearthBar healthBar;
     void Start()
     {
-        
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+
+        currentHealthMagic = maxHealthMagic;
+        healthBar.SetMaxHealth(maxHealthMagic);
     }
 
-   
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (currentHealthMagic <= 0)
         {
-            takeDamage(20);
-            Debug.Log("You MAGIC have Take 20 Damage You Health is  " + currentHealth);
+            Debug.Log("MAGIC is dead");
+            
         }
     }
-    void takeDamage(int damage)
+    public void takeDamageMagic(int damage)
     {
-        currentHealth -= damage;
-        healthBar.Sethealth(currentHealth);
+        currentHealthMagic -= damage;
+        healthBar.Sethealth(currentHealthMagic);
     }
 }

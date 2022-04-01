@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class HumanSTR : MonoBehaviour
 {
-    public int currentHealth;
-    public int maxHealth = 150;
+    public int currentHealthSTR;
+    public int maxHealthSTR = 150;
     
     public HearthBar healthBar;
     void Start()
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        currentHealthSTR = maxHealthSTR;
+        healthBar.SetMaxHealth(maxHealthSTR);
     }
 
    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (currentHealthSTR <= 0)
         {
-            takeDamage(20);
-            Debug.Log("You STR have Take 20 Damage You Health is  " + currentHealth);
+            Debug.Log("STR is dead");
+            
         }
     }
-    void takeDamage(int damage)
+    public void takeDamageSTR(int damage)
     {
-        currentHealth -= damage;
-        healthBar.Sethealth(currentHealth);
+        currentHealthSTR -= damage;
+        healthBar.Sethealth(currentHealthSTR);
     }
 }

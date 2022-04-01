@@ -1,33 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HumanAgi : MonoBehaviour
 {
-    
-    public int currentHealth;
-    public int maxHealth = 100;
+    public int currentHealthAgi;
+    public int maxHealthAgi = 100;
+    public float coolDown;
+    float lastSwap;
     
     public HearthBar healthBar;
     void Start()
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        currentHealthAgi = maxHealthAgi;
+        healthBar.SetMaxHealth(maxHealthAgi);
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (maxHealthAgi <= 0)
         {
-            takeDamage(20);
-            Debug.Log("You AGI have Take 20 Damage You Health is  " + currentHealth);
+            Debug.Log("AGI is dead");
+            
         }
-        
     }
 
-    void takeDamage(int damage)
+    public void takeDamageAgi(int damage)
     {
-        currentHealth -= damage;
-        healthBar.Sethealth(currentHealth);
+        currentHealthAgi -= damage;
+        healthBar.Sethealth(currentHealthAgi);
     }
 }
