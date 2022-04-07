@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Controller : MonoBehaviour
+public class ControllerMain : MonoBehaviour
 {
 
 
@@ -19,15 +19,17 @@ public class Controller : MonoBehaviour
     public bool statusisSTRDead;
     public bool statusisMAGICDead;
     public bool statusisAGIDead;
-    public float coolDownStr;
-    public float coolDownMagic;
-    public float coolDownAgi;
-    float lastSwap;
 
+    //jump var
     private Rigidbody2D rigidbody2d;
     private BoxCollider2D boxCollider2D;
     [SerializeField] private LayerMask platformsLayerMask;
     int jumpCount = 0;
+
+    //Cooldown var
+    private CooldownTimer _cooldownTimer;
+    public float CooldownTimeInSeconds;
+
 
     void Start()
     {
@@ -46,10 +48,18 @@ public class Controller : MonoBehaviour
         statusisMAGICDead = false;
         statusisSTRDead = false;
 
+        //Cooldown setup
+        _cooldownTimer = new CooldownTimer(CooldownTimeInSeconds);
+
+
     }
     void Update()
     {
+        //Cooldown update
+        _cooldownTimer.Update(Time.deltaTime);
+
         swaplocation();
+
         jump();
         // dead();
 
@@ -57,10 +67,10 @@ public class Controller : MonoBehaviour
 
     void swaplocation()
     {
-        if (Time.time - lastSwap < coolDownAgi)
-        {
-            if (Input.GetKeyDown("q"))
-            {
+     //_cooldownTimer.IsActive can't act
+        //!_cooldownTimer.IsActive can act
+             if (Input.GetKeyDown("q") && !_cooldownTimer.IsActive)
+                    {
                 slots1[0].transform.position = transform.position + new Vector3(1, 0, 0);
                 slots2[0].transform.position = transform.position + new Vector3(0, 0, 0);
                 slots3[0].transform.position = transform.position + new Vector3(-1, 0, 0);
@@ -70,15 +80,10 @@ public class Controller : MonoBehaviour
                 statusisSTR = false;
                 statusisMAGIC = true;
                 statusisAGI = false;
-            }
-        }
-        lastSwap = Time.time;
-
-
-        if (Time.time - lastSwap < coolDownAgi)
-        {
-            if (Input.GetKeyDown("w"))
-            {
+                _cooldownTimer.Start();
+                     }
+             if (Input.GetKeyDown("w") && !_cooldownTimer.IsActive)
+                    {
                 slots2[0].transform.position = transform.position + new Vector3(1, 0, 0);
                 slots3[0].transform.position = transform.position + new Vector3(0, 0, 0);
                 slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
@@ -88,29 +93,24 @@ public class Controller : MonoBehaviour
                 statusisSTR = false;
                 statusisMAGIC = false;
                 statusisAGI = true;
-            }
-        }
-        lastSwap = Time.time;
-
-        if (Time.time - lastSwap < coolDownAgi)
-        {
-            if (Input.GetKeyDown("e"))
-            {
-                slots3[0].transform.position = transform.position + new Vector3(1, 0, 0);
-                slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
-                slots2[0].transform.position = transform.position + new Vector3(0, 0, 0);
-                STRhuman.transform.position = transform.position + new Vector3(1, 0, 0);
-                MAGhuman.transform.position = transform.position + new Vector3(-1, 0, 0);
-                AGIhuman.transform.position = transform.position + new Vector3(0, 0, 0);
-                statusisSTR = true;
-                statusisMAGIC = false;
-                statusisAGI = false;
-
-
-            }
-        }
-        lastSwap = Time.time;
+            _cooldownTimer.Start();
+                     }
+             if (Input.GetKeyDown("e") && !_cooldownTimer.IsActive)
+                     {
+            slots3[0].transform.position = transform.position + new Vector3(1, 0, 0);
+            slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
+            slots2[0].transform.position = transform.position + new Vector3(0, 0, 0);
+            STRhuman.transform.position = transform.position + new Vector3(1, 0, 0);
+            MAGhuman.transform.position = transform.position + new Vector3(-1, 0, 0);
+            AGIhuman.transform.position = transform.position + new Vector3(0, 0, 0);
+            statusisSTR = true;
+            statusisMAGIC = false;
+            statusisAGI = false;
+            _cooldownTimer.Start();
+                      }
     }
+
+
     // void dead()
     // {
     //     if (statusisSTRDead == true)
@@ -123,7 +123,7 @@ public class Controller : MonoBehaviour
     //         statusisAGI = true;
     //         statusisMAGIC = false;
     //         statusisSTR = false;
-    //         Debug.Log("Str is dead");
+    //         
     //     }
     //     else if (statusisMAGICDead == true)
     //     {
@@ -135,7 +135,7 @@ public class Controller : MonoBehaviour
     //         statusisAGI = true;
     //         statusisMAGIC = false;
     //         statusisSTR = false;
-    //         Debug.Log("Magic is dead");
+    //         
     //     }
     //     else if (statusisAGIDead == true)
     //     {
@@ -147,7 +147,7 @@ public class Controller : MonoBehaviour
     //         statusisAGI = false;
     //         statusisMAGIC = true;
     //         statusisSTR = false;
-    //         Debug.Log("Agi is dead");
+    //         
     //     }
     // }
     void jump()
@@ -178,23 +178,33 @@ public class Controller : MonoBehaviour
         if (statusisAGI == true)
         {
             AGIhuman.takeDamageAgi(20);
-            Debug.Log("You AGI Take 20 Damage");
+            
         }
         if (statusisMAGIC == true)
         {
             MAGhuman.takeDamageMagic(20);
-            Debug.Log("You MAG Take 20 Damage");
+            
         }
         if (statusisSTR == true)
         {
-            STRhuman.takeDamageSTR(20);
-            Debug.Log("You STR Take 20 Damage");
+            STRhuman.takeDamageSTR(20);  
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
+            if (statusisAGI == true)
+                return;
+            else
+            damage();
+        }
+
+        if (other.gameObject.tag == "BreakableWall")
+        {
+            if (statusisSTR == true)
+                return;
+            else
             damage();
         }
     }

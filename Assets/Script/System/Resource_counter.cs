@@ -12,7 +12,7 @@ public class Resource_counter : MonoBehaviour
     void Start()
     {
         counterText = GetComponent<Text>();
-        progressBar.SetMaxProgress(100);
+        progressBar.SetMaxProgress(300);
         progressBar.SetProgress(0);
 
     }
@@ -21,14 +21,9 @@ public class Resource_counter : MonoBehaviour
     void Update()
     {
 
-        counterText.text = " Herb_" + Resource_Herb.totalHerbs.ToString() +
-                           " Orb_" + Resource_Orb.totalOrbs.ToString() +
-                           " Rock_" + Resource_Rock.totalRocks.ToString() +
-                           " Steel_" + Resource_Steel.totalSteels.ToString() +
-                           " Water_" + Resource_Water.totalWaters.ToString() +
-                           " Wood_" + Resource_Wood.totalWoods.ToString();
+        counterText.text = " Coin_" + Resource_Coin.totalCoins.ToString() ;
 
-        int totalgain = Resource_Herb.totalHerbs + Resource_Orb.totalOrbs + Resource_Rock.totalRocks + Resource_Steel.totalSteels + Resource_Water.totalWaters + Resource_Wood.totalWoods;
-        progressBar.SetProgress(totalgain);
+        float totaltime = Time.realtimeSinceStartup;
+        progressBar.SetProgress(totaltime);
     }
 }

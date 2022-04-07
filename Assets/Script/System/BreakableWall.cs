@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bounder : MonoBehaviour
+public class BreakableWall : MonoBehaviour
 {
     //get controller ref
     public ControllerMain ControllerMain;
@@ -18,9 +18,9 @@ public class Bounder : MonoBehaviour
     void OnTriggerEnter2D(Collider2D c2d)
     {
         //Destroy the coin if Object tagged Player comes in contact with it
-        if (c2d.CompareTag("Player") && ControllerMain.statusisAGI)
+        if (c2d.CompareTag("Player") && ControllerMain.statusisSTR)
         {
-    
+
             //Destroy coin
             Destroy(gameObject);
         }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource_Herb : MonoBehaviour
+public class Resource_Coin : MonoBehaviour
 {
     //Keep track of total picked coins (Since the value is static, it can be accessed at "SC_2DCoin.totalCoins" from any script)
-    public static int totalHerbs = 0;
+    public static int totalCoins = 0;
 
     void Awake()
     {
@@ -19,7 +19,7 @@ public class Resource_Herb : MonoBehaviour
         if (c2d.CompareTag("Player"))
         {
             //Add to counter
-            totalHerbs++;
+            totalCoins++;
 
             //Destroy 
             Destroy(this.gameObject);

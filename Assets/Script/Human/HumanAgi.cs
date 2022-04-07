@@ -19,7 +19,7 @@ public class HumanAgi : MonoBehaviour
     {
         if (maxHealthAgi <= 0)
         {
-            Debug.Log("AGI is dead");
+            //Debug.Log("AGI is dead");
             
         }
     }

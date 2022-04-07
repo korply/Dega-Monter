@@ -19,7 +19,7 @@ public class HumanSTR : MonoBehaviour
     {
         if (currentHealthSTR <= 0)
         {
-            Debug.Log("STR is dead");
+            //Debug.Log("STR is dead");
             
         }
     }

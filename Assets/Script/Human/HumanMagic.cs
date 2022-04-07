@@ -20,7 +20,7 @@ public class HumanMagic : MonoBehaviour
     {
         if (currentHealthMagic <= 0)
         {
-            Debug.Log("MAGIC is dead");
+           // Debug.Log("MAGIC is dead");
             
         }
     }
