@@ -6,27 +6,31 @@ public class HumanAgi : MonoBehaviour
 {
     public int currentHealthAgi;
     public int maxHealthAgi = 100;
-    public float coolDown;
-    float lastSwap;
-    
+    public bool statusisAGIDead;
     public HearthBar healthBar;
+
     void Start()
     {
         currentHealthAgi = maxHealthAgi;
         healthBar.SetMaxHealth(maxHealthAgi);
+        statusisAGIDead = false;
     }
     void Update()
     {
-        if (maxHealthAgi <= 0)
+        if (currentHealthAgi <= 0)
         {
-            //Debug.Log("AGI is dead");
+            statusisAGIDead = true;
             
+
         }
     }
 
     public void takeDamageAgi(int damage)
     {
-        currentHealthAgi -= damage;
-        healthBar.Sethealth(currentHealthAgi);
+        if (!statusisAGIDead)
+        {
+            currentHealthAgi = Mathf.Clamp(currentHealthAgi - damage, 0, maxHealthAgi);
+            healthBar.Sethealth(currentHealthAgi);
+        }
     }
 }

@@ -5,13 +5,15 @@ using UnityEngine;
 public class HumanSTR : MonoBehaviour
 {
     public int currentHealthSTR;
-    public int maxHealthSTR = 150;
-    
+    public int maxHealthSTR = 100;
+    public bool statusisSTRDead;
     public HearthBar healthBar;
+
     void Start()
     {
         currentHealthSTR = maxHealthSTR;
         healthBar.SetMaxHealth(maxHealthSTR);
+        statusisSTRDead = false;
     }
 
    
@@ -19,13 +21,17 @@ public class HumanSTR : MonoBehaviour
     {
         if (currentHealthSTR <= 0)
         {
-            //Debug.Log("STR is dead");
+            statusisSTRDead = true;
             
+
         }
     }
     public void takeDamageSTR(int damage)
     {
-        currentHealthSTR -= damage;
-        healthBar.Sethealth(currentHealthSTR);
+        if (!statusisSTRDead)
+        {
+            currentHealthSTR = Mathf.Clamp(currentHealthSTR - damage, 0, maxHealthSTR);
+            healthBar.Sethealth(currentHealthSTR);
+        }
     }
 }

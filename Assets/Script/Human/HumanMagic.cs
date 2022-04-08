@@ -5,14 +5,16 @@ using UnityEngine;
 public class HumanMagic : MonoBehaviour
 {
     public int currentHealthMagic;
-    public int maxHealthMagic = 80;
-
+    public int maxHealthMagic = 100;
+    public bool statusisMAGICDead;
     public HearthBar healthBar;
+
     void Start()
     {
 
         currentHealthMagic = maxHealthMagic;
         healthBar.SetMaxHealth(maxHealthMagic);
+        statusisMAGICDead = false;
     }
 
 
@@ -20,13 +22,17 @@ public class HumanMagic : MonoBehaviour
     {
         if (currentHealthMagic <= 0)
         {
-           // Debug.Log("MAGIC is dead");
+            statusisMAGICDead = true;
             
+
         }
     }
     public void takeDamageMagic(int damage)
     {
-        currentHealthMagic -= damage;
-        healthBar.Sethealth(currentHealthMagic);
+        if (!statusisMAGICDead)
+        {
+            currentHealthMagic = Mathf.Clamp(currentHealthMagic - damage, 0, maxHealthMagic);
+            healthBar.Sethealth(currentHealthMagic);
+        }
     }
 }

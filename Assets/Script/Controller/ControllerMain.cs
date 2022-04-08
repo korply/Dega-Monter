@@ -5,20 +5,17 @@ using UnityEngine.UI;
 
 public class ControllerMain : MonoBehaviour
 {
-
-
     public HumanMagic MAGhuman;
     public HumanAgi AGIhuman;
     public HumanSTR STRhuman;
     //public ClassTacker ClassTacker;
     public Slot[] slots1, slots2, slots3;
-    public float moveSpeed = 2f;
     public bool statusisSTR;
     public bool statusisMAGIC;
     public bool statusisAGI;
-    public bool statusisSTRDead;
-    public bool statusisMAGICDead;
-    public bool statusisAGIDead;
+
+    
+    
 
     //jump var
     private Rigidbody2D rigidbody2d;
@@ -27,9 +24,16 @@ public class ControllerMain : MonoBehaviour
     int jumpCount = 0;
 
     //Cooldown var
-    private CooldownTimer _cooldownTimer;
-    public float CooldownTimeInSeconds;
+    private CooldownTimer _cooldownTimerSTR;
+    public float CooldownTimeInSecondsSTR;
+    private CooldownTimer _cooldownTimerAGI;
+    public float CooldownTimeInSecondsAGI;
+    private CooldownTimer _cooldownTimerMAG;
+    public float CooldownTimeInSecondsMAG;
 
+    public float TimeRemainingSTR;
+    public float TimeRemainingAGI;
+    public float TimeRemainingMAG;
 
     void Start()
     {
@@ -44,32 +48,38 @@ public class ControllerMain : MonoBehaviour
         statusisAGI = false;
         statusisMAGIC = false;
         statusisSTR = true;
-        statusisAGIDead = false;
-        statusisMAGICDead = false;
-        statusisSTRDead = false;
 
         //Cooldown setup
-        _cooldownTimer = new CooldownTimer(CooldownTimeInSeconds);
+        _cooldownTimerSTR = new CooldownTimer(CooldownTimeInSecondsSTR);
+        _cooldownTimerAGI = new CooldownTimer(CooldownTimeInSecondsAGI);
+        _cooldownTimerMAG = new CooldownTimer(CooldownTimeInSecondsMAG);
 
 
     }
     void Update()
     {
         //Cooldown update
-        _cooldownTimer.Update(Time.deltaTime);
+        _cooldownTimerSTR.Update(Time.deltaTime);
+        _cooldownTimerAGI.Update(Time.deltaTime);
+        _cooldownTimerMAG.Update(Time.deltaTime);
+
+        TimeRemainingSTR = _cooldownTimerSTR.TimeRemaining;
+        TimeRemainingAGI = _cooldownTimerAGI.TimeRemaining;
+        TimeRemainingMAG = _cooldownTimerMAG.TimeRemaining;
 
         swaplocation();
 
         jump();
-        // dead();
 
     }
 
     void swaplocation()
     {
      //_cooldownTimer.IsActive can't act
-        //!_cooldownTimer.IsActive can act
-             if (Input.GetKeyDown("q") && !_cooldownTimer.IsActive)
+     //!_cooldownTimer.IsActive can act
+
+            //MAG
+             if (Input.GetKeyDown("q") && !_cooldownTimerMAG.IsActive && !MAGhuman.statusisMAGICDead)
                     {
                 slots1[0].transform.position = transform.position + new Vector3(1, 0, 0);
                 slots2[0].transform.position = transform.position + new Vector3(0, 0, 0);
@@ -80,9 +90,15 @@ public class ControllerMain : MonoBehaviour
                 statusisSTR = false;
                 statusisMAGIC = true;
                 statusisAGI = false;
-                _cooldownTimer.Start();
-                     }
-             if (Input.GetKeyDown("w") && !_cooldownTimer.IsActive)
+                _cooldownTimerMAG.Start();
+            //active healing
+            AGIhuman.takeDamageAgi(-20);
+            MAGhuman.takeDamageMagic(-20);
+            STRhuman.takeDamageSTR(-20);
+        }
+
+             //AGI
+             if (Input.GetKeyDown("w") && !_cooldownTimerAGI.IsActive && !AGIhuman.statusisAGIDead)
                     {
                 slots2[0].transform.position = transform.position + new Vector3(1, 0, 0);
                 slots3[0].transform.position = transform.position + new Vector3(0, 0, 0);
@@ -93,9 +109,11 @@ public class ControllerMain : MonoBehaviour
                 statusisSTR = false;
                 statusisMAGIC = false;
                 statusisAGI = true;
-            _cooldownTimer.Start();
+            _cooldownTimerAGI.Start();
                      }
-             if (Input.GetKeyDown("e") && !_cooldownTimer.IsActive)
+
+             //STR
+             if (Input.GetKeyDown("e") && !_cooldownTimerSTR.IsActive && !STRhuman.statusisSTRDead)
                      {
             slots3[0].transform.position = transform.position + new Vector3(1, 0, 0);
             slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
@@ -106,50 +124,10 @@ public class ControllerMain : MonoBehaviour
             statusisSTR = true;
             statusisMAGIC = false;
             statusisAGI = false;
-            _cooldownTimer.Start();
+            _cooldownTimerSTR.Start();
                       }
     }
 
-
-    // void dead()
-    // {
-    //     if (statusisSTRDead == true)
-    //     {
-    //         slots3[0].transform.position = transform.position + new Vector3(-1, 0, 0);
-    //         slots2[0].transform.position = transform.position + new Vector3(1, 0, 0);
-    //         slots1[0].transform.position = transform.position + new Vector3(0, 0, 0);
-    //         AGIhuman.transform.position = transform.position + new Vector3(1, 0, 0);
-    //         MAGhuman.transform.position = transform.position + new Vector3(0, 0, 0);
-    //         statusisAGI = true;
-    //         statusisMAGIC = false;
-    //         statusisSTR = false;
-    //         
-    //     }
-    //     else if (statusisMAGICDead == true)
-    //     {
-    //         slots3[0].transform.position = transform.position + new Vector3(0, 0, 0);
-    //         slots2[0].transform.position = transform.position + new Vector3(1, 0, 0);
-    //         slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
-    //         AGIhuman.transform.position = transform.position + new Vector3(1, 0, 0);
-    //         STRhuman.transform.position = transform.position + new Vector3(0, 0, 0);
-    //         statusisAGI = true;
-    //         statusisMAGIC = false;
-    //         statusisSTR = false;
-    //         
-    //     }
-    //     else if (statusisAGIDead == true)
-    //     {
-    //         slots3[0].transform.position = transform.position + new Vector3(0, 0, 0);
-    //         slots2[0].transform.position = transform.position + new Vector3(1, 0, 0);
-    //         slots1[0].transform.position = transform.position + new Vector3(-1, 0, 0);
-    //         STRhuman.transform.position = transform.position + new Vector3(1, 0, 0);
-    //         MAGhuman.transform.position = transform.position + new Vector3(0, 0, 0);
-    //         statusisAGI = false;
-    //         statusisMAGIC = true;
-    //         statusisSTR = false;
-    //         
-    //     }
-    // }
     void jump()
     {
 

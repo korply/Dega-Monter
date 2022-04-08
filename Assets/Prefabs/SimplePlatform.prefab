@@ -147,9 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 1563994594053765623}
   resourceprefab:
-  - {fileID: 3013221948472030631, guid: 037a6c69388e2f34cb58d3883017b090, type: 3}
   - {fileID: 3938976397130840713, guid: b29b6a8067e494f47a3167e49ca4cac4, type: 3}
   - {fileID: 7391348048589810935, guid: 8a402811e7ffa3847a08a31ec5bbfa5a, type: 3}
+  - {fileID: 3013221948472030631, guid: 037a6c69388e2f34cb58d3883017b090, type: 3}
   boxCollider2D1: {fileID: 1563994594053765620}
 --- !u!251 &5642586432867757755
 PlatformEffector2D:
