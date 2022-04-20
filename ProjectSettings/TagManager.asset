@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Enemy
   - BreakableWall
+  - DeathZone
   layers:
   - Default
   - TransparentFX

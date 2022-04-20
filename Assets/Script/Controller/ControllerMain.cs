@@ -14,8 +14,8 @@ public class ControllerMain : MonoBehaviour
     public bool statusisMAGIC;
     public bool statusisAGI;
 
-    
-    
+    public Resource_counter resource_counter;
+
 
     //jump var
     private Rigidbody2D rigidbody2d;
@@ -25,15 +25,25 @@ public class ControllerMain : MonoBehaviour
 
     //Cooldown var
     private CooldownTimer _cooldownTimerSTR;
-    public float CooldownTimeInSecondsSTR;
-    private CooldownTimer _cooldownTimerAGI;
-    public float CooldownTimeInSecondsAGI;
     private CooldownTimer _cooldownTimerMAG;
+    private CooldownTimer _cooldownTimerAGI;
+    public float CooldownTimeInSecondsSTR;
+    public float CooldownTimeInSecondsAGI;
     public float CooldownTimeInSecondsMAG;
-
     public float TimeRemainingSTR;
     public float TimeRemainingAGI;
     public float TimeRemainingMAG;
+
+    //invincibleTimer
+    private CooldownTimer _cooldownTimerInvincible;
+    public float CooldownTimeInSecondsInvincible;
+    public float TimeRemainingInvincible;
+
+    //Death event
+    public bool playerIsDeath = false;
+
+    //flashing
+    public Flashing[] flashing;
 
     void Start()
     {
@@ -45,16 +55,29 @@ public class ControllerMain : MonoBehaviour
         STRhuman.transform.position = transform.position + new Vector3(1, 0, 0);
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
         boxCollider2D = transform.GetComponent<BoxCollider2D>();
+        
         statusisAGI = false;
         statusisMAGIC = false;
         statusisSTR = true;
 
-        //Cooldown setup
+        //Cooldown swap setup
         _cooldownTimerSTR = new CooldownTimer(CooldownTimeInSecondsSTR);
         _cooldownTimerAGI = new CooldownTimer(CooldownTimeInSecondsAGI);
         _cooldownTimerMAG = new CooldownTimer(CooldownTimeInSecondsMAG);
 
+        //invincibleTimer setup
+        _cooldownTimerInvincible = new CooldownTimer(CooldownTimeInSecondsInvincible);
 
+        //flashing sprite setup
+        flashing[0] = GameObject.Find("MAGhuman").GetComponent<Flashing>();
+        flashing[1] = GameObject.Find("AGIhuman").GetComponent<Flashing>();
+        flashing[2] = GameObject.Find("STRhuman").GetComponent<Flashing>();
+        //flashing sprite duration = invincible time
+        flashing[0].flashDuration = CooldownTimeInSecondsInvincible;
+        flashing[1].flashDuration = CooldownTimeInSecondsInvincible;
+        flashing[2].flashDuration = CooldownTimeInSecondsInvincible;
+        //reset totalcoins
+        Resource_Coin.totalCoins = 0;
     }
     void Update()
     {
@@ -62,14 +85,19 @@ public class ControllerMain : MonoBehaviour
         _cooldownTimerSTR.Update(Time.deltaTime);
         _cooldownTimerAGI.Update(Time.deltaTime);
         _cooldownTimerMAG.Update(Time.deltaTime);
-
         TimeRemainingSTR = _cooldownTimerSTR.TimeRemaining;
         TimeRemainingAGI = _cooldownTimerAGI.TimeRemaining;
         TimeRemainingMAG = _cooldownTimerMAG.TimeRemaining;
 
+        //invincibleTimer update
+        _cooldownTimerInvincible.Update(Time.deltaTime);
+        TimeRemainingInvincible = _cooldownTimerInvincible.TimeRemaining;
+
         swaplocation();
 
         jump();
+
+        CheckDeath();
 
     }
 
@@ -153,19 +181,26 @@ public class ControllerMain : MonoBehaviour
     }
     public void damage()
     {
-        if (statusisAGI == true)
+        if (!_cooldownTimerInvincible.IsActive)
         {
-            AGIhuman.takeDamageAgi(20);
-            
-        }
-        if (statusisMAGIC == true)
-        {
-            MAGhuman.takeDamageMagic(20);
-            
-        }
-        if (statusisSTR == true)
-        {
-            STRhuman.takeDamageSTR(20);  
+            if (statusisAGI == true)
+            {
+                AGIhuman.takeDamageAgi(20);
+
+            }
+            if (statusisMAGIC == true)
+            {
+                MAGhuman.takeDamageMagic(20);
+
+            }
+            if (statusisSTR == true)
+            {
+                STRhuman.takeDamageSTR(20);
+            }
+            _cooldownTimerInvincible.Start();
+            flashing[0].Flash();
+            flashing[1].Flash();
+            flashing[2].Flash();
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -184,6 +219,24 @@ public class ControllerMain : MonoBehaviour
                 return;
             else
             damage();
+        }
+
+        if (other.gameObject.tag == "DeathZone")
+        {
+            playerIsDeath = true;
+        }
+    }
+
+    public void CheckDeath()
+    {
+        if(MAGhuman.statusisMAGICDead && STRhuman.statusisSTRDead && AGIhuman.statusisAGIDead)
+        {
+            playerIsDeath = true;
+        }
+
+        if(resource_counter.timeUp)
+        {
+            playerIsDeath = true;
         }
     }
 }

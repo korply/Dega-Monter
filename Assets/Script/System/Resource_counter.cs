@@ -7,6 +7,8 @@ public class Resource_counter : MonoBehaviour
 {
     Text counterText;
     public ProgressBar progressBar;
+    public float totaltime = 0;
+    public bool timeUp=false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +22,14 @@ public class Resource_counter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         counterText.text = " Coin_" + Resource_Coin.totalCoins.ToString() ;
-
-        float totaltime = Time.realtimeSinceStartup;
+        totaltime = Time.realtimeSinceStartup;
         progressBar.SetProgress(totaltime);
+
+        if (totaltime>=300)
+        {
+            timeUp = true;
+        }
+
     }
 }
