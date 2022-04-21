@@ -22,10 +22,7 @@ public class Platform : MonoBehaviour
     void Update()
     {
         rigidbody.velocity = new Vector2(scrollSpeed, 0);
-        if (transform.position.x < -width)
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 
 }
