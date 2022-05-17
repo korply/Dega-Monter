@@ -152,26 +152,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049caacd3be69994685ed425192e57a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster1rarity: 1
+  monster1rarity: 3
   monster1level: 2
-  monster1item1: 6
-  monster1item2: 7
-  monster1item3: 6
-  monster1food: 4
+  monster1item1: 9
+  monster1item2: 9
+  monster1item3: 9
+  monster1food: 5
   monster2rarity: 3
   monster2level: 2
   monster2item1: 6
-  monster2item2: 2
-  monster2item3: 4
+  monster2item2: 7
+  monster2item3: 6
   monster2food: 4
   monster3rarity: 0
   monster3level: 1
   monster3item1: 5
   monster3item2: 4
-  monster3item3: 6
+  monster3item3: 8
   monster3food: 2
   islandQI: 1
   bossMonster: 0
+  textAssetData: {fileID: 4900000, guid: d02c12b72b60d0545a775e163c6533e1, type: 3}
+  myQIList:
+    Island: []
 --- !u!4 &148378694
 Transform:
   m_ObjectHideFlags: 0
