@@ -61,7 +61,10 @@ public class AFKCalculator : MonoBehaviour
 
     //QI data in CSV
     //can see in inspector
-    public TextAsset textAssetData; 
+    public TextAsset textAssetData;
+
+    public string monsterText;
+    public string islandText;
 
     [System.Serializable]
     public class QI
@@ -90,16 +93,7 @@ public class AFKCalculator : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
             {
-            print(" TotalMonster1SP = " + CalculateSP(monster1rarity, monster1level, monster1item1, monster1item2, monster1item3, monster1food)
-                + " TotalMonster2SP = " + CalculateSP(monster2rarity, monster2level, monster2item1, monster2item2, monster2item3, monster2food)
-                + " TotalMonster3SP = " + CalculateSP(monster3rarity, monster3level, monster3item1, monster3item2, monster3item3, monster3food));
-
-            monster1totalSP = CalculateSP(monster1rarity, monster1level, monster1item1, monster1item2, monster1item3, monster1food);
-            monster2totalSP = CalculateSP(monster2rarity, monster2level, monster2item1, monster2item2, monster2item3, monster2food);
-            monster3totalSP = CalculateSP(monster3rarity, monster3level, monster3item1, monster3item2, monster3item3, monster3food);
-            partySP = monster1totalSP + monster2totalSP + monster3totalSP;
-
-            print("PartySP = " + partySP);
+            MonsterCal();
         }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -111,7 +105,26 @@ public class AFKCalculator : MonoBehaviour
 
     }
 
-    void LandCal()
+    public void MonsterCal()
+    {
+        print(" TotalMonster1SP = " + CalculateSP(monster1rarity, monster1level, monster1item1, monster1item2, monster1item3, monster1food)
+             + " TotalMonster2SP = " + CalculateSP(monster2rarity, monster2level, monster2item1, monster2item2, monster2item3, monster2food)
+             + " TotalMonster3SP = " + CalculateSP(monster3rarity, monster3level, monster3item1, monster3item2, monster3item3, monster3food));
+
+        monster1totalSP = CalculateSP(monster1rarity, monster1level, monster1item1, monster1item2, monster1item3, monster1food);
+        monster2totalSP = CalculateSP(monster2rarity, monster2level, monster2item1, monster2item2, monster2item3, monster2food);
+        monster3totalSP = CalculateSP(monster3rarity, monster3level, monster3item1, monster3item2, monster3item3, monster3food);
+        partySP = monster1totalSP + monster2totalSP + monster3totalSP;
+
+        print("PartySP = " + partySP);
+
+        monsterText = " TotalMonster1SP = " + CalculateSP(monster1rarity, monster1level, monster1item1, monster1item2, monster1item3, monster1food)
+                        + "\n TotalMonster2SP = " + CalculateSP(monster2rarity, monster2level, monster2item1, monster2item2, monster2item3, monster2food)
+                        + "\n TotalMonster3SP = " + CalculateSP(monster3rarity, monster3level, monster3item1, monster3item2, monster3item3, monster3food)
+                        + "\n PartySP = " + partySP;
+    }
+
+    public void LandCal()
     {
         if(islandQI<=10)
         {
@@ -149,10 +162,12 @@ public class AFKCalculator : MonoBehaviour
         if(i>=2)
         {
             print("Island : You WIN!!! IslandQI = " + islandQI);
+            islandText = "Island : You WIN!!! IslandQI = " + islandQI;
         }
         if(i<2)
         {
             print("Island : You LOST??? IslandQI = " + islandQI);
+            islandText = "Island : You LOST??? IslandQI = " + islandQI;
         }
 
 
@@ -229,10 +244,24 @@ public class AFKCalculator : MonoBehaviour
 
         print(mon1 + "VS" + islandIndex1 +"___"+ mon2 + "VS" + islandIndex2+"___"+ mon3 + "VS" + islandIndex3);
 
-        if(victoryIndex>=2)
+        if (victoryIndex >= 2)
+        {
             print("Island : You WIN!!! IslandQI = " + islandQI);
-        if(victoryIndex<2)
+            islandText = "___Island___QI=" + islandQI
+                        + "\nMON1_"+ mon1 + "_VS_" + islandIndex1 
+                        + "\nMON2_"+mon2 + "_VS_" + islandIndex2 
+                        + "\nMON3_"+mon3 + "_VS_" + islandIndex3
+                        + "\nIsland : You WIN!!!";
+        }
+        if (victoryIndex < 2)
+        {
             print("Island : You LOST!!! IslandQI = " + islandQI);
+            islandText = "___Island___QI=" + islandQI
+            + "\nMON1_" + mon1 + "_VS_" + islandIndex1
+            + "\nMON2_" + mon2 + "_VS_" + islandIndex2
+            + "\nMON3_" + mon3 + "_VS_" + islandIndex3
+            + "\nIsland : You LOST!!!";
+        }
 
     }
 
@@ -263,10 +292,18 @@ public class AFKCalculator : MonoBehaviour
 
         if(party>= bossValue)
         {
+            islandText = islandText + "\n\n___Boss Fight___"
+                                    + "\nPartySP_" + party + " VS " + "BossSP_" + bossValue
+                                    + "\nYou WIN Boss Fight!!!";
+
             print("You WIN Boss Fight!!!");
         }
         if(party<bossValue)
         {
+            islandText = islandText + "\n\n___Boss Fight___"
+                        + "\nPartySP_" + party + " VS " + "BossSP_" + bossValue
+                        + "\nYou LOST Boss Fight???";
+
             print("You LOST Boss Fight???");
         }
 
