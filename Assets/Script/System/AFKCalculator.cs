@@ -46,10 +46,6 @@ public class AFKCalculator : MonoBehaviour
     [Range(0, 5)]
     public int monster3food = 0;
 
-    //Island
-    [Range(1, 100)]
-    public int islandQI = 1;
-
     //Boss
     public bool bossMonster = false;
 
@@ -63,8 +59,33 @@ public class AFKCalculator : MonoBehaviour
     //can see in inspector
     public TextAsset textAssetData;
 
+    //UI
     public string monsterText;
     public string islandText;
+
+
+    //Island
+    [Range(1, 100)]
+    public int islandQI = 1;
+
+    //Island factory
+    [Range(0, 300)]
+    public int stoneFactoryPercent = 10;
+    [Range(0, 300)]
+    public int woodFactoryPercent = 10;
+    [Range(0, 300)]
+    public int herbFactoryPercent = 10;
+    [Range(0, 300)]
+    public int waterFactoryPercent = 10;
+    [Range(0, 300)]
+    public int steelFactoryPercent = 10;
+    [Range(0, 300)]
+    public int orbFactoryPercent = 10;
+
+    //itemdrop
+    int stoneDrop, woodDrop, herbDrop, waterDrop, steelDrop, orbDrop;
+    
+
 
     [System.Serializable]
     public class QI
@@ -161,12 +182,13 @@ public class AFKCalculator : MonoBehaviour
         }
         if(i>=2)
         {
-            print("Island : You WIN!!! IslandQI = " + islandQI);
+
             islandText = "Island : You WIN!!! IslandQI = " + islandQI;
+            CalculateDrop();
         }
         if(i<2)
         {
-            print("Island : You LOST??? IslandQI = " + islandQI);
+
             islandText = "Island : You LOST??? IslandQI = " + islandQI;
         }
 
@@ -246,16 +268,17 @@ public class AFKCalculator : MonoBehaviour
 
         if (victoryIndex >= 2)
         {
-            print("Island : You WIN!!! IslandQI = " + islandQI);
+            
+ 
             islandText = "___Island___QI=" + islandQI
                         + "\nMON1_"+ mon1 + "_VS_" + islandIndex1 
                         + "\nMON2_"+mon2 + "_VS_" + islandIndex2 
                         + "\nMON3_"+mon3 + "_VS_" + islandIndex3
                         + "\nIsland : You WIN!!!";
+            CalculateDrop();
         }
         if (victoryIndex < 2)
         {
-            print("Island : You LOST!!! IslandQI = " + islandQI);
             islandText = "___Island___QI=" + islandQI
             + "\nMON1_" + mon1 + "_VS_" + islandIndex1
             + "\nMON2_" + mon2 + "_VS_" + islandIndex2
@@ -292,6 +315,7 @@ public class AFKCalculator : MonoBehaviour
 
         if(party>= bossValue)
         {
+            
             islandText = islandText + "\n\n___Boss Fight___"
                                     + "\nPartySP_" + party + " VS " + "BossSP_" + bossValue
                                     + "\nYou WIN Boss Fight!!!";
@@ -306,6 +330,77 @@ public class AFKCalculator : MonoBehaviour
 
             print("You LOST Boss Fight???");
         }
+
+    }
+
+    void CalculateDrop ()
+    {
+    
+        //unitdrop
+        int unitDrop=1;        
+        if(islandQI>0 && islandQI <=25)
+        {
+            unitDrop = 5;
+        }
+        if(islandQI>25 && islandQI <= 50)
+        {
+            unitDrop = 4;
+        }
+        if(islandQI>50 && islandQI <=75)
+        {
+            unitDrop = 3;
+        }
+        if(islandQI>75 && islandQI <=100)
+        {
+            unitDrop = 2;
+        }
+
+        int sumRange = stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent + steelFactoryPercent + waterFactoryPercent + orbFactoryPercent;
+        int a = 0;
+        steelDrop = 0;
+        stoneDrop = 0;
+        woodDrop = 0;
+        herbDrop = 0;
+        waterDrop = 0;
+        orbDrop = 0;
+        //order stone>wood>herb>steel>water>orb
+        for(a=0; a < unitDrop;a++)
+        {
+            int value = Random.Range(1, sumRange+1);
+            
+            if(value<=stoneFactoryPercent && stoneFactoryPercent>0)
+            {
+                stoneDrop++;
+            }
+            if(value>stoneFactoryPercent && value<= stoneFactoryPercent+woodFactoryPercent && woodFactoryPercent >0)
+            {
+                woodDrop++;
+            }
+            if(value> stoneFactoryPercent + woodFactoryPercent && value<= stoneFactoryPercent + woodFactoryPercent+herbFactoryPercent && herbFactoryPercent>0)
+            {
+                herbDrop++;
+            }
+            if(value> stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent && value<= stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent+steelFactoryPercent && steelFactoryPercent>0)
+            {
+                steelDrop++;
+            }
+            if(value> stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent + steelFactoryPercent && value<= stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent + steelFactoryPercent+waterFactoryPercent && waterFactoryPercent>0)
+            {
+                waterDrop++;
+            }
+            if(value> stoneFactoryPercent + woodFactoryPercent + herbFactoryPercent + steelFactoryPercent + waterFactoryPercent && value<= sumRange && orbFactoryPercent>0)
+            {
+                orbDrop++;
+            }
+        }
+
+        islandText = islandText + "\n___itemDrop___"
+            + "\nStone_" + stoneDrop
+            + "\nWood_" + woodDrop
+            + "\nHerb_" + herbDrop
+            + "\nSteel_" + steelDrop
+            + "\nWater_" + waterDrop
+            + "\nOrb_" + orbDrop;
 
     }
 

@@ -239,17 +239,23 @@ MonoBehaviour:
   monster2item2: 9
   monster2item3: 9
   monster2food: 5
-  monster3rarity: 0
+  monster3rarity: 3
   monster3level: 1
   monster3item1: 9
   monster3item2: 9
   monster3item3: 9
   monster3food: 5
-  islandQI: 99
   bossMonster: 0
   textAssetData: {fileID: 4900000, guid: d02c12b72b60d0545a775e163c6533e1, type: 3}
   monsterText: 
   islandText: 
+  islandQI: 99
+  stoneFactoryPercent: 48
+  woodFactoryPercent: 113
+  herbFactoryPercent: 89
+  waterFactoryPercent: 87
+  steelFactoryPercent: 95
+  orbFactoryPercent: 100
   myQIList:
     Island: []
 --- !u!4 &148378694
@@ -585,7 +591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -257, y: -219}
+  m_AnchoredPosition: {x: -258.5, y: -79}
   m_SizeDelta: {x: 185.3202, y: 74.308}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634762633
@@ -960,8 +966,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 253.43103, y: 52.106476}
-  m_SizeDelta: {x: 400.9231, y: 379.8024}
+  m_AnchoredPosition: {x: 259, y: 43.169}
+  m_SizeDelta: {x: 400.9231, y: 532.6482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1472268872
 MonoBehaviour:
@@ -1096,7 +1102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 249, y: -219}
+  m_AnchoredPosition: {x: -258.5, y: -170}
   m_SizeDelta: {x: 166.3301, y: 74.3104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1889304270
@@ -1215,8 +1221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -239.1379, y: 52.106}
-  m_SizeDelta: {x: 409.7852, y: 379.8}
+  m_AnchoredPosition: {x: -249, y: 193.37756}
+  m_SizeDelta: {x: 409.7852, y: 232.2249}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2105629778
 MonoBehaviour:
