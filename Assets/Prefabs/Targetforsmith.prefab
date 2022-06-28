@@ -206,3 +206,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliderPynya: {fileID: 320119591308860209, guid: 5ac83e5617f6aa44a922fc9da7cae192, type: 3}
+  GameObjectFade: {fileID: 903796405233052406}

@@ -12,13 +12,14 @@ public class SliderPynya : MonoBehaviour
     bool B;
     bool G;
     public Rigidbody2D Rigidbody2DGray;
+    public float changePersecondByBarHit;
 
     private bool startTheBar=false;
     private bool addValue = true;
 
     public GameObject targetPrefab;
 
-    public bool useFixedUpdate;
+
     public float variableToChange=1;
     public float changePerSecond=60;
     private float acceleratePerSecond = 0.25f;
@@ -27,39 +28,21 @@ public class SliderPynya : MonoBehaviour
     public bool spawnable=false;
     public int totalTargetCount;
 
-
+    //score
+    public int badhit;
+    public int goodhit;
+    public int perfecthit;
 
     private void Start()
     {
+        //random target hit position at bar
         Rigidbody2DGray.transform.localPosition = new Vector2(Random.Range(-250, 250), 0);
     }
 
     void Update()
     {
         
-
-        if (!useFixedUpdate && startTheBar)
-        {
-            if(addValue)
-            {
-                changePerSecond = changePerSecond + acceleratePerSecond;
-                variableToChange += changePerSecond * Time.deltaTime;
-                mainSlider.value = variableToChange;
-                
-                if (variableToChange > 100)
-                    addValue = false;            }
-            else
-            {
-                variableToChange -= changePerSecond * Time.deltaTime;
-                mainSlider.value = variableToChange;
-               
-                if (variableToChange < 2)
-                    addValue = true;
-            }
-
-           
-        }
-
+        //space to start bar 
         if (Input.GetKeyDown(KeyCode.Space) && !spawnPhase)
         {
             if (!startTheBar)
@@ -71,11 +54,12 @@ public class SliderPynya : MonoBehaviour
             { 
                 //second spacebar hit
                 startTheBar = false;
-                Checkhit();
+                CheckhitArea();
             }
 
         }
 
+        //generate target for click till count 5
         if(spawnPhase&&spawnable&&totalTargetCount<5)
         {
             spawnTarget();
@@ -84,10 +68,10 @@ public class SliderPynya : MonoBehaviour
     }
 
 
-    private void Checkhit()
+    private void CheckhitArea()
     {
 
-
+        
        B = BoxCollider2DBlue.IsTouching(BoxCollider2DHandler);
         G = BoxCollider2DGray.IsTouching(BoxCollider2DHandler);
 
@@ -98,6 +82,7 @@ public class SliderPynya : MonoBehaviour
             totalTargetCount = 0;
             spawnable = true;
             spawnPhase = true;
+            changePersecondByBarHit = 1;
         }
         if(G&&!B)
         {
@@ -106,11 +91,13 @@ public class SliderPynya : MonoBehaviour
             totalTargetCount = 0;
             spawnable = true;
             spawnPhase = true;
+            changePersecondByBarHit = 3;
         }
         if(!G&&!B)
         {
             //miss
             Debug.Log("miss");
+          
         }
 
         
@@ -129,7 +116,7 @@ public class SliderPynya : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (useFixedUpdate && startTheBar)
+        if (startTheBar)
         {
 
             changePerSecond = Mathf.Clamp(changePerSecond + acceleratePerSecond, 1, 150);
