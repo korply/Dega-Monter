@@ -24,12 +24,35 @@ public class TargetForSmith : MonoBehaviour
         scale -= changePerSecond * Time.deltaTime;
 
         GameObjectFade.transform.localScale = new Vector3(scale, scale, 1);
+
+
+        if(scale<=0)
+        {
+            sliderPynya.badhit++;
+
+            if (sliderPynya.totalTargetCount < 5)
+            {
+                sliderPynya.spawnable = true;
+                Debug.Log("bad_" + sliderPynya.badhit + " good_" + sliderPynya.goodhit + " perfect_" + sliderPynya.perfecthit);
+                sliderPynya.startTheBar = true;
+                sliderPynya.RandomBarLocation();
+                sliderPynya.spawnPhase = false;
+            }
+            Destroy(gameObject);
+        }
     }
 
     void OnMouseDown()
     {
         CalScore();
-        sliderPynya.spawnable = true;
+        if (sliderPynya.totalTargetCount < 5)
+        {
+            sliderPynya.spawnable = true;
+            sliderPynya.startTheBar = true;
+            sliderPynya.RandomBarLocation();
+            sliderPynya.spawnPhase = false;
+        }
+
         Destroy(gameObject);
     }
 

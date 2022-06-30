@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 903796405233052405}
   - component: {fileID: 903796405233052404}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: spritefade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7bf50c7668a02c244a5d134a94fba03f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc4cd50a0b97d174c957325de23d9ca5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.33333334}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 903796405932245878}
   - component: {fileID: 903796405932245879}
   - component: {fileID: 903796405932245881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Targetforsmith
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903796405932245882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.63, y: 0.09, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalPosition: {x: -19.37, y: 0.44, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 903796405233052405}
   m_Father: {fileID: 0}
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7bf50c7668a02c244a5d134a94fba03f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc4cd50a0b97d174c957325de23d9ca5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,14 +184,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.12}
+    oldSize: {x: 1.4, y: 1.4}
     newSize: {x: 0.13, y: 0.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.12}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &903796405932245881
 MonoBehaviour:
