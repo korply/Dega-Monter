@@ -15,7 +15,7 @@ public class TargetForSmith : MonoBehaviour
     void Start()
     {
         sliderPynya = GameObject.Find("EventSystem").GetComponent<SliderPynya>();
-        changePerSecond = sliderPynya.changePersecondByBarHit;
+        changePerSecond = sliderPynya.targetChangePersecondByBarHit;
     }
 
     // Update is called once per frame
@@ -29,6 +29,7 @@ public class TargetForSmith : MonoBehaviour
         if(scale<=0)
         {
             sliderPynya.badhit++;
+            sliderPynya.feedbackText = "Bad!";
 
             if (sliderPynya.totalTargetCount < 5)
             {
@@ -38,6 +39,7 @@ public class TargetForSmith : MonoBehaviour
                 sliderPynya.RandomBarLocation();
                 sliderPynya.spawnPhase = false;
             }
+            sliderPynya.totalTargetCount++;
             Destroy(gameObject);
         }
     }
@@ -45,6 +47,7 @@ public class TargetForSmith : MonoBehaviour
     void OnMouseDown()
     {
         CalScore();
+
         if (sliderPynya.totalTargetCount < 5)
         {
             sliderPynya.spawnable = true;
@@ -52,22 +55,37 @@ public class TargetForSmith : MonoBehaviour
             sliderPynya.RandomBarLocation();
             sliderPynya.spawnPhase = false;
         }
-
+        sliderPynya.totalTargetCount++;
         Destroy(gameObject);
     }
 
     void CalScore()
     {
         if (scale <= 3 && scale > 2)
+        {
             sliderPynya.badhit++;
+            sliderPynya.feedbackText = "Bad!";
+        }
         if (scale <= 2 && scale > 1.25)
+        {
             sliderPynya.goodhit++;
+            sliderPynya.feedbackText = "Good!!";
+        }
         if (scale <= 1.25 && scale > 0.75)
+        {
             sliderPynya.perfecthit++;
-        if (scale <= 0.75&& scale>0.25)
+            sliderPynya.feedbackText = "Perfect!!!";
+        }
+        if (scale <= 0.75 && scale > 0.25)
+        {
             sliderPynya.goodhit++;
-        if (scale<=0.25)
+            sliderPynya.feedbackText = "Good!!";
+        }
+        if (scale <= 0.25)
+        {
             sliderPynya.badhit++;
+            sliderPynya.feedbackText = "Bad!";
+        }
 
         Debug.Log("bad_" + sliderPynya.badhit +" good_"+ sliderPynya.goodhit+" perfect_"+ sliderPynya.perfecthit);
     }
