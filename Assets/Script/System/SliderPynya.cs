@@ -127,20 +127,19 @@ public class SliderPynya : MonoBehaviour
         }
         if(G&&!B)
         {
-            // hit gray
-            Debug.Log("hit gray");
-            feedbackText = "hit gray!!";
-            spawnable = true;
-            spawnPhase = true;
-            targetChangePersecondByBarHit = maxTargetSpeed;
+            //miss
+            Debug.Log("miss");
+            feedbackText = "miss!";
+            startTheBar = true;
+            RandomBarLocation();
+            SetCraftedItemQIToSpeed();
+            Debug.Log("bad_" + badhit + " good_" + goodhit + " perfect_" + perfecthit);
         }
         if(!G&&!B)
         {
             //miss
             Debug.Log("miss");
             feedbackText = "miss!";
-            badhit++;
-            totalTargetCount++;
             startTheBar = true;
             RandomBarLocation();
             SetCraftedItemQIToSpeed();
@@ -173,7 +172,7 @@ public class SliderPynya : MonoBehaviour
             startBarSpeed = 100;
             maxBarSpeed = 150;
         }
-        if(CraftItemQI>90)
+        if(CraftItemQI>=90)
         {
             startBarSpeed = 120;
             maxBarSpeed = 180;
@@ -194,12 +193,12 @@ public class SliderPynya : MonoBehaviour
         }
         if(CraftItemQI>50&&CraftItemQI<=89)
         {
-            minTargetSpeed = 2;
+            minTargetSpeed = 3;
             maxTargetSpeed = 4;
         }
         if(CraftItemQI>=90)
         {
-            minTargetSpeed = 3;
+            minTargetSpeed = 5;
             maxTargetSpeed = 5;
         }
         //scale target
