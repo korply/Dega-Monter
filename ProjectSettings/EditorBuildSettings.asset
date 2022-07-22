@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GameRun.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/crafting.unity
+    path: Assets/Crafting_system/crafting.unity
     guid: bf97c5f10552aca4fb4dc67c3069bb2e
   m_configObjects: {}

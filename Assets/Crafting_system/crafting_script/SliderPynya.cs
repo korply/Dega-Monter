@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SliderPynya : MonoBehaviour
 {
+    //slider asset
     public Slider mainSlider;
     public Slider QISlider;
     public BoxCollider2D BoxCollider2DGray;
@@ -13,22 +14,27 @@ public class SliderPynya : MonoBehaviour
     bool B;
     bool G;
     public Rigidbody2D Rigidbody2DGray;
-    public float targetChangePersecondByBarHit;
+    
 
+    //start bar movement
     public bool startTheBar=false;
     private bool addValue = true;
 
-    public GameObject targetPrefab;
-
-
+    //bar move speed
     public float variableToChange=1;
     public float startBarSpeed;
     public float maxBarSpeed;
     private float acceleratePerSecond = 0.25f;
 
+    //target for click
+    public GameObject targetPrefab;
     public bool spawnPhase = false;
     public bool spawnable=false;
+    //count target
     public int totalTargetCount;
+    //target animation speed
+    public float targetChangePersecondByBarHit;
+ 
 
     //score
     public int badhit;
@@ -37,9 +43,6 @@ public class SliderPynya : MonoBehaviour
     public string feedbackText;
     public Text feedbackTextUI;
 
-
-
- 
 
     //game over
     public bool gameIsOver = false;
@@ -58,14 +61,8 @@ public class SliderPynya : MonoBehaviour
 
     private void Start()
     {
-
-
-
         RandomBarLocation();
-        
     }
-
-
 
 
 
@@ -81,7 +78,7 @@ public class SliderPynya : MonoBehaviour
         {
             if (!startTheBar)
             {
-                //first spacebar hit
+                //first spacebar hit 
                 startTheBar = true;
             }
             else
@@ -108,7 +105,7 @@ public class SliderPynya : MonoBehaviour
     }
 
 
-
+    //check hit area miss/hit blue
     private void CheckhitArea()
     {
 
@@ -150,6 +147,7 @@ public class SliderPynya : MonoBehaviour
      
     }
 
+    //get QI input to bar speed
     public void SetCraftedItemQIToSpeed()
     {
         if(CraftItemQI<=25)
@@ -208,16 +206,20 @@ public class SliderPynya : MonoBehaviour
         
     }
 
+    //spawn target on screen
     public void spawnTarget()
     {
         
         GameObject target = Instantiate(targetPrefab) as GameObject;
+
+        //random spawn position
         target.transform.position = new Vector2(Random.Range(-4, 4), Random.Range(0, 3));
         spawnable = false;
         SetCraftedItemQIToSpeed();
 
     }
 
+    //random local location of bar
     public void RandomBarLocation()
     {
         Rigidbody2DGray.transform.localPosition = new Vector2(Random.Range(-250, 250), 0);
@@ -225,12 +227,13 @@ public class SliderPynya : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        //bar movement
         if (startTheBar)
         {
-
+            //speed with limited speed
             startBarSpeed = Mathf.Clamp(startBarSpeed + acceleratePerSecond, 1, maxBarSpeed);
 
+            //movement acceleration
             if (addValue)
             {
                 variableToChange += startBarSpeed * Time.deltaTime;

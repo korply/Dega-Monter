@@ -11,7 +11,7 @@ public class screenmanager_crafting : MonoBehaviour
     public GameObject selectQIUI;
     public SliderPynya sliderPynya;
 
-    // Start is called before the first frame update
+   
     void Start()
     {
         Paused();
@@ -23,9 +23,7 @@ public class screenmanager_crafting : MonoBehaviour
     }
     void Update()
     {
-
         CheckGameOver();
-
     }
 
     public void Paused()
